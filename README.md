@@ -37,7 +37,7 @@ See [TrackPerformance](https://github.com/teksidia/aspnetcore-effective-logging/
 [Route("api/[controller]")]
 ```
 ---
-***LifeCycle events*** (via a base class) can also allow more granular control
+**LifeCycle events** (via a base class) can also allow more granular control
 
 See [BasePageModel](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/BaseClasses/BasePageModel.cs)
 
@@ -60,6 +60,8 @@ To create logs: Serilog, NLog
 To consume logs: Seq, ELK, App Insights
 
 ILogger is injected via DI. But Serilog uses static Log.
+
+To improve **logger performance**, use [LoggerMessage.Define](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/LogMessages.cs)
 
 # Info
 
