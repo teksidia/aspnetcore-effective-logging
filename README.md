@@ -3,7 +3,9 @@ This repo contains code that from the [Effective Logging in ASP.NET Core](https:
 
 # My Notes / Memory Joggers
 
-Filters are used to create log entries globally across page and controller executions
+**Filters** are used to create log entries globally across page and controller executions
+
+See [TrackActionPerformanceFilter](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/Filters/TrackActionPerformanceFilter.cs)
 
 ```
 services.AddMvc(options =>
@@ -13,8 +15,10 @@ services.AddMvc(options =>
     options.Filters.Add(typeof(TrackActionPerformanceFilter));
 });
 ```
+---
+**Middleware** can help implement a global exception handling
 
-Middleware can help implement a global exception handling
+See [UseApiExceptionHandler](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/Middleware/ApiExceptionMiddlewareExtensions.cs)
 
 ```
 app.UseApiExceptionHandler(options =>
@@ -23,10 +27,27 @@ app.UseApiExceptionHandler(options =>
     options.DetermineLogLevel = DetermineLogLevel;
 });
 ```
+---
+**Attributes** can allow a more granular approach
 
-Attributes can allow a more granular approach
+See [TrackPerformance](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/Attributes/TrackPerformanceAttribute.cs) ActionFilterAttribute
 
-LifeCycle events (via a base class) can also allow more granular control
+```
+[TypeFilter(typeof(TrackPerformance))]
+[Route("api/[controller]")]
+```
+---
+***LifeCycle events*** (via a base class) can also allow more granular control
+
+See [BasePageModel](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/BaseClasses/BasePageModel.cs)
+
+```
+namespace BookClub.UI.Pages
+{
+    public class BookListModel : BasePageModel
+    {
+```
+
 
 Level and Category/SourceContext are typically used to apply filters to logging
 
