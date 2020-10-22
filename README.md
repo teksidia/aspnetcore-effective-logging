@@ -5,7 +5,24 @@ This repo contains code that from the [Effective Logging in ASP.NET Core](https:
 
 Filters are used to create log entries globally across page and controller executions
 
+```
+services.AddMvc(options =>
+{
+    var builder = new AuthorizationPolicyBuilder().RequireAuthenticatedUser();
+    options.Filters.Add(new AuthorizeFilter(builder.Build()));
+    options.Filters.Add(typeof(TrackActionPerformanceFilter));
+});
+```
+
 Middleware can help implement a global exception handling
+
+```
+app.UseApiExceptionHandler(options =>
+{
+    options.AddResponseDetails = UpdateApiErrorResponse;
+    options.DetermineLogLevel = DetermineLogLevel;
+});
+```
 
 Attributes can allow a more granular approach
 
