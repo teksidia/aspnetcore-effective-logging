@@ -1,5 +1,5 @@
 # ASP.NET Core -- Effective Logging
-This repo contains code that from the [Effective Logging in ASP.NET Core](https://app.pluralsight.com/library/courses/asp-dotnet-core-effective-logging) course on Pluralsight
+This repo contains code from the [Effective Logging in ASP.NET Core](https://app.pluralsight.com/library/courses/asp-dotnet-core-effective-logging) course on Pluralsight by Erik Dahl.
 
 # My Notes / Memory Joggers
 
@@ -16,7 +16,7 @@ services.AddMvc(options =>
 });
 ```
 ---
-**Middleware** can help implement a global exception handling
+**Middleware** is a great place for global exception handling (a global try...catch)
 
 See [UseApiExceptionHandler](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/Middleware/ApiExceptionMiddlewareExtensions.cs)
 
@@ -48,24 +48,23 @@ namespace BookClub.UI.Pages
     {
 ```
 
+**Scopes** add contextual information to log entries across a single logical operation that might span class boundaries. They can be implemented by either creating / disposing in OnActionExecuting / OnActionExecuted in an [IActionFilter](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/Filters/TrackActionPerformanceFilter.cs) or maybe in middleware?
 
-Level and Category/SourceContext are typically used to apply filters to logging
+**Log levels** allow you to categorise and filter based on urgency (fatal, error, warning, info, debug, trace etc)
 
-Scopes add contextual information to log entries across a single logical operation that might span class boundaries
+To **create logs**: [Serilog](https://serilog.net/), [NLog](https://nlog-project.org/)
 
-Log levels allow you to categorise and filter based on urgency (fatal, error, warning, info, debug, trace etc)
-
-To create logs: Serilog, NLog
-
-To consume logs: Seq, ELK, App Insights
+To **consume logs**: [Seq](https://datalust.co/seq), [ELK stack](https://www.elastic.co/what-is/elk-stack), Azure App Insights
 
 ILogger is injected via DI. But Serilog uses static Log.
 
 To improve **logger performance**, use [LoggerMessage.Define](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/LogMessages.cs)
 
+Level and Category/SourceContext are typically used to filter logs
+
 # Info
 
-It includes references to BOTH Serilog and NLog and various commits will change the logging framework from one to the other.
+The codebase includes references to BOTH Serilog and NLog and various commits will change the logging framework from one to the other.
 
 A couple of key recent updates have been made that might be of interest:
 
@@ -80,9 +79,7 @@ There are two projects that should be set to run in this repo:
 * BookClub.UI (this is the user interface - and it makes calls to the API project)
 * BookClub.API (this is the API which has all of the database interactions)
 
-The API projects `appsettings.json` file has a connection string that looks for a `BookClub` database on a local SQLExpress instance.  If you don't have one `BookClub` database:
-* **Optional**: [Download Microsoft® SQL Server® 2017 Express](https://www.microsoft.com/en-us/download/details.aspx?id=55994) and [SQL Server Management Studio (SSMS)](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?redirectedfrom=MSDN&view=sql-server-ver15).
-* Create a database called BookClub in some instance of SQL Server. Express is fine, so is the Docker version.
+The API projects `appsettings.json` file has a connection string that looks for a `BookClub` database on a local SQLExpress instance. 
 * Use the 4 files in the `BookClub.Data/Schema` folder to set up the `BookClub` database:
   * Create the `Book` table by running the SQL in `Book.sql`
   * Insert a couple of rows by running the SQL in `InitialData.sql`
