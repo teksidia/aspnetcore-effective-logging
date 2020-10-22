@@ -1,5 +1,29 @@
 # ASP.NET Core -- Effective Logging
-This repo contains code that was used (and is kept up-to-date) from the [Effective Logging in ASP.NET Core](https://app.pluralsight.com/library/courses/asp-dotnet-core-effective-logging) course on Pluralsight, which I authored.
+This repo contains code that from the [Effective Logging in ASP.NET Core](https://app.pluralsight.com/library/courses/asp-dotnet-core-effective-logging) course on Pluralsight
+
+# My Notes / Memory Joggers
+
+Filters are used to create log entries globally across page and controller executions
+
+Middleware can help implement a global exception handling
+
+Attributes can allow a more granular approach
+
+LifeCycle events (via a base class) can also allow more granular control
+
+Level and Category/SourceContext are typically used to apply filters to logging
+
+Scopes add contextual information to log entries across a single logical operation that might span class boundaries
+
+Log levels allow you to categorise and filter based on urgency (fatal, error, warning, info, debug, trace etc)
+
+To create logs: Serilog, NLog
+
+To consume logs: Seq, ELK, App Insights
+
+ILogger is injected via DI. But Serilog uses static Log.
+
+# Info
 
 It includes references to BOTH Serilog and NLog and various commits will change the logging framework from one to the other.
 
