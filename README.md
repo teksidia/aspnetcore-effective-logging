@@ -48,7 +48,13 @@ namespace BookClub.UI.Pages
     {
 ```
 
-**Scopes** add contextual information to log entries across a single logical operation that might span class boundaries. They can be implemented by either creating / disposing in OnActionExecuting / OnActionExecuted in an [IActionFilter](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/Filters/TrackActionPerformanceFilter.cs) or maybe in middleware?
+**Scopes** add contextual information to log entries across a single logical operation that might span class boundaries. They can be implemented by either ```log.BeginScope``` or creating / disposing in OnActionExecuting / OnActionExecuted in an [IActionFilter](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/Filters/TrackActionPerformanceFilter.cs)
+
+```
+using(log.BeginScope("{personId} {payload}", personId, JsonConvert.SerializeObject(payload))) {
+    // code here
+}
+```
 
 **Log levels** allow you to categorise and filter based on urgency (fatal, error, warning, info, debug, trace etc)
 
