@@ -58,15 +58,20 @@ using(log.BeginScope("{personId} {payload}", personId, JsonConvert.SerializeObje
 
 **Log levels** allow you to categorise and filter based on urgency (fatal, error, warning, info, debug, trace etc)
 
-To **create logs**: [Serilog](https://serilog.net/), [NLog](https://nlog-project.org/)
-
-To **consume logs**: [Seq](https://datalust.co/seq), [ELK stack](https://www.elastic.co/what-is/elk-stack), Azure App Insights
-
 ILogger is injected via DI. But Serilog uses static Log.
 
 To improve **logger performance**, use [LoggerMessage.Define](https://github.com/teksidia/aspnetcore-effective-logging/blob/master/AspNetCore-Effective-Logging/BookClub.Infrastructure/LogMessages.cs)
 
 Level and Category/SourceContext are typically used to filter logs
+
+To **create logs**: [Azure App Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/ilogger), [Serilog](https://serilog.net/), [NLog](https://nlog-project.org/)
+
+To **consume logs**: Azure App Insights, [Seq](https://datalust.co/seq), [ELK stack](https://www.elastic.co/what-is/elk-stack)
+
+## Azure Application Insights
+
+* [In .NET CORE apps](https://docs.microsoft.com/en-us/azure/azure-monitor/app/ilogger)
+* [In Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-monitoring)
 
 # Info
 
